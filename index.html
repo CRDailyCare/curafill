@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>37.3 PDF Generator</title>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: grid;
+            place-items: center;
+            min-height: 90vh;
+            margin: 0;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 2rem 3rem;
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            color: #1a1a1a;
+            text-align: center;
+            margin-top: 0;
+        }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        label {
+            font-weight: 600;
+        }
+        select, button {
+            font-size: 1rem;
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007aff; /* Ein Blau als Akzent */
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        /* Deaktivierten Button ausgrauen */
+        button:disabled {
+            background-color: #c0c0c0;
+            cursor: not-allowed;
+        }
+        #status-message {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            min-height: 1.2em; /* Verhindert Springen der UI */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>37.3er Überprüfung</h1>
+        <p>Bitte wählen Sie einen Klienten aus, um das PDF automatisch vorauszufüllen.</p>
+        
+        <div class="controls">
+            <label for="client-dropdown">Klient auswählen:</label>
+            <select id="client-dropdown">
+                <option value="">Lade Klienten...</option>
+            </select>
+            
+            <button id="generate-pdf-btn" disabled>PDF generieren</button>
+        </div>
+        
+        <p id="status-message"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
