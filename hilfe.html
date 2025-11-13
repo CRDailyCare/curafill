@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilfe - 37.3-Prüfungsassistent</title>
+    <meta name="description" content="Hilfe und Anleitung zum 37.3-Prüfungsassistenten">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --secondary-gray: #6B7280;
+            --accent-green: #10B981;
+            --bg-light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .help-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .help-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.open {
+            max-height: 500px;
+        }
+        
+        .search-highlight {
+            background-color: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-green));
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .video-placeholder {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border: 2px dashed #d1d5db;
+            transition: all 0.3s ease;
+        }
+        
+        .video-placeholder:hover {
+            border-color: var(--primary-blue);
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="glass-effect fixed top-0 left-0 right-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="flex items-center space-x-2 text-white hover:text-blue-200 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    <span>Zurück</span>
+                </a>
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-bold text-white">Hilfe & Support</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center space-x-2">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <a href="mailto:support@pflegedienst.de" class="text-white hover:text-blue-200 transition-colors">
+                        support@pflegedienst.de
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-6 pt-24 pb-12">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <h2 class="text-2xl font-bold text-white mb-2">Hilfe-Center</h2>
+                <p class="text-blue-100 mb-6">Finden Sie Antworten auf häufige Fragen und Anleitungen zur Nutzung des 37.3-Prüfungsassistenten</p>
+                
+                <!-- Search -->
+                <div class="max-w-md mx-auto">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="help-search" 
+                            placeholder="Suche nach Themen..." 
+                            class="w-full px-4 py-3 pl-12 rounded-lg border-0 bg-white bg-opacity-90 backdrop-filter backdrop-blur-sm focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        >
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="help-card rounded-xl p-6 text-center cursor-pointer" onclick="scrollToSection('getting-started')">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Erste Schritte</h3>
+                <p class="text-sm text-gray-600">Schnellstart-Anleitung für neue Benutzer</p>
+            </div>
+            
+            <div class="help-card rounded-xl p-6 text-center cursor-pointer" onclick="scrollToSection('faq')">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">FAQ</h3>
+                <p class="text-sm text-gray-600">Häufig gestellte Fragen und Antworten</p>
+            </div>
+            
+            <div class="help-card rounded-xl p-6 text-center cursor-pointer" onclick="scrollToSection('tutorials')">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1M9 10v5a2 2 0 002 2h2a2 2 0 002-2v-5"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Tutorials</h3>
+                <p class="text-sm text-gray-600">Video-Anleitungen und Schritt-für-Schritt-Guides</p>
+            </div>
+        </div>
+        
+        <!-- Getting Started Section -->
+        <section id="getting-started" class="mb-12">
+            <div class="help-card rounded-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Erste Schritte</h2>
+                
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number">1</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Airtable-Konfiguration</h3>
+                            <p class="text-gray-600 mb-3">Verbinden Sie die Anwendung mit Ihrer Airtable-Datenbank, um auf Kundendaten zuzugreifen.</p>
+                            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                                <p class="text-sm text-blue-700">
+                                    <strong>Tipp:</strong> Sie finden Ihren API-Key und Base-ID in den Einstellungen Ihres Airtable-Accounts.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number">2</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Kunden auswählen</h3>
+                            <p class="text-gray-600 mb-3">Wählen Sie einen Kunden aus Ihrer Datenbank aus, für den Sie eine 37.3-Prüfung durchführen möchten.</p>
+                            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                                <li>Nutzen Sie die Suchfunktion, um Kunden schnell zu finden</li>
+                                <li>Filtern Sie nach Region, Status oder Pflegegrad</li>
+                                <li>Klicken Sie auf "Neue Prüfung", um zu starten</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number">3</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">Formular ausfüllen</h3>
+                            <p class="text-gray-600 mb-3">Füllen Sie das 37.3-Formular schrittweise aus. Die Anwendung füllt automatisch bekannte Kundendaten ein.</p>
+                            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                                <li>Überprüfen Sie die vorausgefüllten Daten</li>
+                                <li>Ergänzen Sie fehlende Informationen</li>
+                                <li>Die PDF-Vorschau zeigt Ihnen den aktuellen Stand</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="step-number">4</div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">PDF generieren</h3>
+                            <p class="text-gray-600 mb-3">Generieren Sie das ausgefüllte PDF-Dokument und speichern oder drucken Sie es.</p>
+                            <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                                <p class="text-sm text-green-700">
+                                    <strong>Hinweis:</strong> Das PDF wird automatisch mit aktuellem Datum und Kundendaten benannt.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section id="faq" class="mb-12">
+            <div class="help-card rounded-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Häufig gestellte Fragen</h2>
+                
+                <div class="space-y-4" id="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex items-center justify-between" onclick="toggleFAQ(0)">
+                            <h3 class="font-semibold text-gray-800">Wie verbinde ich die Anwendung mit Airtable?</h3>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-0">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="faq-answer" id="faq-answer-0">
+                            <div class="p-4 pt-0 text-gray-600">
+                                <p>Gehen Sie zu den Einstellungen und geben Sie Ihren Airtable API-Key und Base-ID ein. Sie finden diese Informationen in Ihrem Airtable-Account unter "Account" → "API".</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1 text-sm">
+                                    <li>API-Key: Wird in Airtable unter Account → API generiert</li>
+                                    <li>Base-ID: Finden Sie in der URL Ihrer Airtable-Base</li>
+                                    <li>Tabelle: Der Name Ihrer Kundentabelle (z.B. "Kunden")</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex items-center justify-between" onclick="toggleFAQ(1)">
+                            <h3 class="font-semibold text-gray-800">Welche Daten werden automatisch aus Airtable geladen?</h3>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-1">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="faq-answer" id="faq-answer-1">
+                            <div class="p-4 pt-0 text-gray-600">
+                                <p>Folgende Kundendaten werden automatisch geladen und in das Formular eingefügt:</p>
+                                <ul class="list-disc list-inside mt-2 space-y-1 text-sm">
+                                    <li>Name, Vorname, Nachname</li>
+                                    <li>Geburtsdatum</li>
+                                    <li>Adresse (Straße, PLZ, Ort)</li>
+                                    <li>Versicherungsnummer</li>
+                                    <li>Pflegegrad</li>
+                                    <li>Kontaktdaten (Telefon, Email)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex items-center justify-between" onclick="toggleFAQ(2)">
+                            <h3 class="font-semibold text-gray-800">Kann ich die PDF-Vorlage anpassen?</h3>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-2">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="faq-answer" id="faq-answer-2">
+                            <div class="p-4 pt-0 text-gray-600">
+                                <p>Ja, Sie können eigene PDF-Vorlagen hochladen. Gehen Sie dazu zu den Einstellungen → PDF-Vorlagen und laden Sie Ihre angepasste Vorlage hoch.</p>
+                                <p class="mt-2 text-sm">Stellen Sie sicher, dass Ihre Vorlage die korrekten Formularfelder enthält, damit die Daten richtig zugeordnet werden.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex items-center justify-between" onclick="toggleFAQ(3)">
+                            <h3 class="font-semibold text-gray-800">Werden meine Daten automatisch gespeichert?</h3>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-3">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="faq-answer" id="faq-answer-3">
+                            <div class="p-4 pt-0 text-gray-600">
+                                <p>Ja, das Formular wird alle 30 Sekunden automatisch im lokalen Speicher Ihres Browsers gespeichert. Sie können die Einstellungen ändern, um das automatische Speichern zu deaktivieren.</p>
+                                <p class="mt-2 text-sm">Wichtig: Der automatische Speicher erfolgt nur lokal in Ihrem Browser, nicht in Airtable.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex items-center justify-between" onclick="toggleFAQ(4)">
+                            <h3 class="font-semibold text-gray-800">Wie kann ich bestehende Prüfungen bearbeiten?</h3>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-4">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="faq-answer" id="faq-answer-4">
+                            <div class="p-4 pt-0 text-gray-600">
+                                <p>Aktuell werden Prüfungen als PDF-Dokumente generiert und sind nicht direkt in der Anwendung bearbeitbar. Um eine bestehende Prüfung zu aktualisieren:</p>
+                                <ol class="list-decimal list-inside mt-2 space-y-1 text-sm">
+                                    <li>Wählen Sie den gleichen Kunden erneut aus</li>
+                                    <li>Die bekannten Daten werden wieder eingefügt</li>
+                                    <li>Aktualisieren Sie die notwendigen Felder</li>
+                                    <li>Generieren Sie ein neues PDF</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex items-center justify-between" onclick="toggleFAQ(5)">
+                            <h3 class="font-semibold text-gray-800">Welche Browser werden unterstützt?</h3>
+                            <svg class="w-5 h-5 text-gray-500 transform transition-transform" id="faq-icon-5">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="faq-answer" id="faq-answer-5">
+                            <div class="p-4 pt-0 text-gray-600">
+                                <p>Die Anwendung wurde für moderne Browser optimiert und unterstützt:</p>
+                                <ul class="list-disc list-inside mt-2 space-y-1 text-sm">
+                                    <li>Google Chrome (empfohlen)</li>
+                                    <li>Mozilla Firefox</li>
+                                    <li>Microsoft Edge</li>
+                                    <li>Safari (ab Version 14)</li>
+                                </ul>
+                                <p class="mt-2 text-sm">Stellen Sie sicher, dass JavaScript aktiviert ist und Cookies zugelassen sind.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tutorials Section -->
+        <section id="tutorials" class="mb-12">
+            <div class="help-card rounded-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Video-Tutorials</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="video-placeholder rounded-lg p-8 text-center">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293H15M9 10V9a2 2 0 012-2h2a2 2 0 012 2v1M9 10v5a2 2 0 002 2h2a2 2 0 002-2v-5"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800 mb-2">Schnellstart-Guide</h3>
+                        <p class="text-sm text-gray-600 mb-4">In 5 Minuten zum ersten Formular</p>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                            Video abspielen
+                        </button>
+                    </div>
+                    
+                    <div class="video-placeholder rounded-lg p-8 text-center">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800 mb-2">Airtable-Integration</h3>
+                        <p class="text-sm text-gray-600 mb-4">Schrittweise Einrichtung der Datenbankverbindung</p>
+                        <button class="bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                            Video abspielen
+                        </button>
+                    </div>
+                    
+                    <div class="video-placeholder rounded-lg p-8 text-center">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800 mb-2">PDF-Vorlagen anpassen</h3>
+                        <p class="text-sm text-gray-600 mb-4">Erstellen und Verwalten eigener Formularvorlagen</p>
+                        <button class="bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                            Video abspielen
+                        </button>
+                    </div>
+                    
+                    <div class="video-placeholder rounded-lg p-8 text-center">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-gray-800 mb-2">Tipps & Tricks</h3>
+                        <p class="text-sm text-gray-600 mb-4">Effiziente Arbeit mit dem Prüfungsassistenten</p>
+                        <button class="bg-orange-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-orange-700 transition-colors">
+                            Video abspielen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section class="mb-12">
+            <div class="help-card rounded-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Kontakt & Support</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Technischer Support</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                <a href="mailto:support@pflegedienst.de" class="text-blue-600 hover:text-blue-800">
+                                    support@pflegedienst.de
+                                </a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                                <span class="text-gray-600">030 12345678</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-gray-600">Mo-Fr 8:00-18:00 Uhr</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Schulung & Beratung</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                                <a href="mailto:schulung@pflegedienst.de" class="text-green-600 hover:text-green-800">
+                                    schulung@pflegedienst.de
+                                </a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                <span class="text-gray-600">Online-Schulungen verfügbar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                    <h4 class="font-semibold text-gray-800 mb-2">Feedback & Feature-Requests</h4>
+                    <p class="text-sm text-gray-600 mb-3">Haben Sie Verbesserungsvorschläge oder vermissen Sie eine Funktion?</p>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                        Feedback geben
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2024 Pflegedienst Digital. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+    
+    <script>
+        // Help page specific functionality
+        class HelpManager {
+            constructor() {
+                this.searchIndex = [];
+                this.init();
+            }
+            
+            init() {
+                this.buildSearchIndex();
+                this.setupEventListeners();
+            }
+            
+            buildSearchIndex() {
+                // Build search index from FAQ content
+                const faqItems = document.querySelectorAll('.faq-item');
+                faqItems.forEach((item, index) => {
+                    const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                    const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                    
+                    this.searchIndex.push({
+                        index,
+                        content: question + ' ' + answer,
+                        element: item
+                    });
+                });
+            }
+            
+            setupEventListeners() {
+                const searchInput = document.getElementById('help-search');
+                if (searchInput) {
+                    searchInput.addEventListener('input', (e) => this.handleSearch(e.target.value));
+                }
+            }
+            
+            handleSearch(query) {
+                if (!query.trim()) {
+                    this.clearSearch();
+                    return;
+                }
+                
+                const searchTerm = query.toLowerCase();
+                let hasResults = false;
+                
+                this.searchIndex.forEach(item => {
+                    const matches = item.content.includes(searchTerm);
+                    const faqItem = item.element;
+                    const question = faqItem.querySelector('.faq-question h3');
+                    const answer = faqItem.querySelector('.faq-answer');
+                    
+                    if (matches) {
+                        hasResults = true;
+                        faqItem.style.display = 'block';
+                        
+                        // Highlight search term
+                        this.highlightText(question, searchTerm);
+                        this.highlightText(answer, searchTerm);
+                        
+                        // Open matching FAQ items
+                        this.openFAQ(item.index);
+                    } else {
+                        faqItem.style.display = 'none';
+                    }
+                });
+                
+                if (!hasResults) {
+                    window.app.showNotification('Keine Ergebnisse für Ihre Suche gefunden.', 'info');
+                }
+            }
+            
+            clearSearch() {
+                this.searchIndex.forEach(item => {
+                    item.element.style.display = 'block';
+                    this.clearHighlight(item.element.querySelector('.faq-question h3'));
+                    this.clearHighlight(item.element.querySelector('.faq-answer'));
+                });
+            }
+            
+            highlightText(element, searchTerm) {
+                if (!element || !searchTerm) return;
+                
+                const text = element.textContent;
+                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                const highlightedText = text.replace(regex, '<span class="search-highlight">$1</span>');
+                
+                element.innerHTML = highlightedText;
+            }
+            
+            clearHighlight(element) {
+                if (!element) return;
+                
+                const text = element.textContent;
+                element.innerHTML = text;
+            }
+        }
+        
+        // FAQ toggle functionality
+        function toggleFAQ(index) {
+            const answer = document.getElementById(`faq-answer-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer').forEach(el => {
+                    el.classList.remove('open');
+                });
+                document.querySelectorAll('[id^="faq-icon-"]').forEach(el => {
+                    el.style.transform = 'rotate(0deg)';
+                });
+                
+                // Open clicked FAQ
+                answer.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        
+        // Initialize help manager when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for main app to be initialized
+            setTimeout(() => {
+                window.helpManager = new HelpManager();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

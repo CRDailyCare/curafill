@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>37.3-Prüfungsassistent - Pflegedienst Digital</title>
+    <meta name="description" content="Digitale Lösung für die Verwaltung und Ausfüllung von 37.3-Prüfungsformularen">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.min.js"></script>
+    
+    <!-- ECharts for Data Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <!-- p5.js for Creative Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    
+    <!-- PDF-Lib for PDF Handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --secondary-gray: #6B7280;
+            --accent-green: #10B981;
+            --bg-light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #1E40AF 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
+            to { box-shadow: 0 0 30px rgba(37, 99, 235, 0.6); }
+        }
+        
+        .search-input {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            background: rgba(255, 255, 255, 1);
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .customer-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+            transform-origin: 50% 50%;
+        }
+        
+        #background-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Background Canvas -->
+    <div id="background-canvas"></div>
+    
+    <!-- Navigation -->
+    <nav class="glass-effect fixed top-0 left-0 right-0 z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-bold text-white">Pflegedienst Digital</h1>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-white hover:text-blue-200 transition-colors font-medium">Dashboard</a>
+                <a href="formular.html" class="text-white hover:text-blue-200 transition-colors font-medium">Formular</a>
+                <a href="einstellungen.html" class="text-white hover:text-blue-200 transition-colors font-medium">Einstellungen</a>
+                <a href="hilfe.html" class="text-white hover:text-blue-200 transition-colors font-medium">Hilfe</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                    <span class="text-white text-sm font-semibold">MK</span>
+                </div>
+                <span class="text-white text-sm font-medium hidden sm:block">Max Mustermann</span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 hero-gradient relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 floating-animation" data-splitting>
+                    37.3-Prüfungsassistent
+                </h1>
+                <p class="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Effiziente digitale Verwaltung und Ausfüllung von Prüfungsformularen für Ihren Pflegedienst
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button id="start-new-btn" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors pulse-glow">
+                        Neue Prüfung starten
+                    </button>
+                    <button class="glass-effect text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:bg-opacity-20 transition-colors">
+                        Letzte Prüfungen
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full floating-animation"></div>
+        <div class="absolute bottom-20 right-10 w-16 h-16 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/2 left-20 w-12 h-12 bg-white bg-opacity-10 rounded-full floating-animation" style="animation-delay: 4s;"></div>
+    </section>
+    
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Search and Filter Section -->
+        <div class="mb-8">
+            <div class="glass-effect rounded-2xl p-6 mb-6">
+                <h2 class="text-2xl font-bold text-white mb-4">Kundenauswahl</h2>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-1">
+                        <input 
+                            type="text" 
+                            id="customer-search" 
+                            placeholder="Suche nach Name, ID oder Adresse..." 
+                            class="w-full search-input rounded-lg px-4 py-3 text-gray-800 placeholder-gray-500"
+                        >
+                    </div>
+                    <div class="flex gap-2">
+                        <select id="status-filter" class="search-input rounded-lg px-4 py-3 text-gray-800">
+                            <option value="">Alle Status</option>
+                            <option value="aktiv">Aktiv</option>
+                            <option value="inaktiv">Inaktiv</option>
+                            <option value="neu">Neu</option>
+                        </select>
+                        <select id="region-filter" class="search-input rounded-lg px-4 py-3 text-gray-800">
+                            <option value="">Alle Regionen</option>
+                            <option value="nord">Nord</option>
+                            <option value="sued">Süd</option>
+                            <option value="ost">Ost</option>
+                            <option value="west">West</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Customer Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="customer-grid">
+            <!-- Customer cards will be dynamically loaded here -->
+        </div>
+        
+        <!-- Statistics Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2" id="completed-count">47</h3>
+                <p class="text-blue-100">Abgeschlossene Prüfungen</p>
+            </div>
+            
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2" id="pending-count">12</h3>
+                <p class="text-blue-100">Ausstehende Prüfungen</p>
+            </div>
+            
+            <div class="glass-effect rounded-xl p-6 text-center">
+                <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2" id="total-customers">156</h3>
+                <p class="text-blue-100">Aktive Kunden</p>
+            </div>
+        </div>
+        
+        <!-- Progress Chart -->
+        <div class="glass-effect rounded-xl p-6">
+            <h3 class="text-xl font-bold text-white mb-4">Prüfungs-Statistiken (letzte 6 Monate)</h3>
+            <div id="progress-chart" style="height: 300px;"></div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2024 Pflegedienst Digital. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-700">Daten werden geladen...</p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="main.js"></script>
+    
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize text splitting animation
+            Splitting();
+            
+            // Animate hero text
+            anime({
+                targets: '[data-splitting] .char',
+                translateY: [100, 0],
+                opacity: [0, 1],
+                easing: 'easeOutExpo',
+                duration: 1400,
+                delay: (el, i) => 30 * i
+            });
+            
+            // Initialize background animation
+            initializeBackground();
+            
+            // Initialize chart
+            initializeChart();
+            
+            // Load customer data
+            loadCustomers();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+        
+        function initializeBackground() {
+            new p5((p) => {
+                let particles = [];
+                
+                p.setup = function() {
+                    let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+                    canvas.parent('background-canvas');
+                    
+                    // Create particles
+                    for (let i = 0; i < 50; i++) {
+                        particles.push({
+                            x: p.random(p.width),
+                            y: p.random(p.height),
+                            size: p.random(2, 6),
+                            speedX: p.random(-0.5, 0.5),
+                            speedY: p.random(-0.5, 0.5),
+                            opacity: p.random(0.1, 0.3)
+                        });
+                    }
+                };
+                
+                p.draw = function() {
+                    p.clear();
+                    
+                    // Draw and update particles
+                    particles.forEach(particle => {
+                        p.fill(255, 255, 255, particle.opacity * 255);
+                        p.noStroke();
+                        p.circle(particle.x, particle.y, particle.size);
+                        
+                        particle.x += particle.speedX;
+                        particle.y += particle.speedY;
+                        
+                        // Wrap around screen
+                        if (particle.x < 0) particle.x = p.width;
+                        if (particle.x > p.width) particle.x = 0;
+                        if (particle.y < 0) particle.y = p.height;
+                        if (particle.y > p.height) particle.y = 0;
+                    });
+                };
+                
+                p.windowResized = function() {
+                    p.resizeCanvas(p.windowWidth, p.windowHeight);
+                };
+            });
+        }
+        
+        function initializeChart() {
+            const chartDom = document.getElementById('progress-chart');
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                backgroundColor: 'transparent',
+                textStyle: {
+                    color: '#ffffff'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    textStyle: {
+                        color: '#333'
+                    }
+                },
+                legend: {
+                    data: ['Abgeschlossen', 'In Bearbeitung'],
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun'],
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ffffff'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Abgeschlossen',
+                        type: 'line',
+                        stack: 'Total',
+                        data: [8, 12, 15, 18, 22, 25],
+                        itemStyle: {
+                            color: '#10B981'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(16, 185, 129, 0.3)'
+                                }, {
+                                    offset: 1, color: 'rgba(16, 185, 129, 0.1)'
+                                }]
+                            }
+                        }
+                    },
+                    {
+                        name: 'In Bearbeitung',
+                        type: 'line',
+                        stack: 'Total',
+                        data: [2, 3, 4, 3, 5, 4],
+                        itemStyle: {
+                            color: '#F59E0B'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(245, 158, 11, 0.3)'
+                                }, {
+                                    offset: 1, color: 'rgba(245, 158, 11, 0.1)'
+                                }]
+                            }
+                        }
+                    }
+                ]
+            };
+            
+            myChart.setOption(option);
+            
+            // Responsive chart
+            window.addEventListener('resize', function() {
+                myChart.resize();
+            });
+        }
+        
+        function setupEventListeners() {
+            // Search functionality
+            const searchInput = document.getElementById('customer-search');
+            const statusFilter = document.getElementById('status-filter');
+            const regionFilter = document.getElementById('region-filter');
+            
+            searchInput.addEventListener('input', debounce(filterCustomers, 300));
+            statusFilter.addEventListener('change', filterCustomers);
+            regionFilter.addEventListener('change', filterCustomers);
+            
+            // Start new button
+            document.getElementById('start-new-btn').addEventListener('click', function() {
+                showNotification('Wählen Sie einen Kunden aus, um eine neue Prüfung zu starten', 'info');
+            });
+        }
+        
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>

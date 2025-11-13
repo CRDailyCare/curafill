@@ -1,0 +1,119 @@
+# Netlify Configuration for 37.3-Prüfungsassistent
+# This file configures the build and deployment settings for Netlify
+
+[build]
+  # The build command to run
+  command = "echo 'Static site - no build required'"
+  
+  # The directory to publish (relative to the repository root)
+  publish = "."
+  
+  # The base directory for the build (optional)
+  # base = "."
+
+# Environment variables configuration
+[build.environment]
+  # Node.js version (if needed for future builds)
+  NODE_VERSION = "18"
+  
+  # Environment-specific settings
+  # These will be overridden by Netlify environment variables
+  AIRTABLE_API_KEY = ""
+  AIRTABLE_BASE_ID = ""
+  AIRTABLE_TABLE_NAME = "Kunden"
+  DEMO_MODE = "false"
+  DEBUG_MODE = "false"
+
+# Redirects for SPA routing
+[[redirects]]
+  # Redirect all requests to index.html for SPA routing
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
+  # Exceptions for API routes (if any)
+  # from = "/api/*"
+  # to = "/api/:splat"
+  # status = 200
+
+# Headers for security and performance
+[[headers]]
+  # Define which paths this header applies to
+  for = "/*"
+  
+  # Security headers
+  [headers.values]
+    # Content Security Policy
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.airtable.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
+    
+    # XSS Protection
+    X-XSS-Protection = "1; mode=block"
+    
+    # Frame Options
+    X-Frame-Options = "DENY"
+    
+    # Content Type Options
+    X-Content-Type-Options = "nosniff"
+    
+    # Referrer Policy
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Feature Policy / Permissions Policy
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+
+# Specific headers for static assets
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Development-specific settings
+[context.deploy-preview]
+  # Environment variables for preview deployments
+  environment = { DEMO_MODE = "true", DEBUG_MODE = "true" }
+  
+  # Different headers for preview deployments
+  [[context.deploy-preview.headers]]
+    for = "/*"
+    [context.deploy-preview.headers.values]
+      X-Robots-Tag = "noindex, nofollow"
+
+# Branch-specific settings
+[context.staging]
+  # Environment variables for staging
+  environment = { DEMO_MODE = "false", DEBUG_MODE = "true" }
+
+# Production-specific settings
+[context.production]
+  # Environment variables for production
+  environment = { DEMO_MODE = "false", DEBUG_MODE = "false" }
+
+# Functions configuration (if needed in the future)
+# [functions]
+#   node_bundler = "esbuild"
+#   directory = "netlify/functions"
+
+# Edge Functions configuration (if needed in the future)
+# [[edge_functions]]
+#   function = "auth"
+#   path = "/api/*"
