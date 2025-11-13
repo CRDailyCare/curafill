@@ -29,7 +29,7 @@ exports.handler = async (event, context) => {
         // 4. PDF-Template-Datei laden
         //    Wir gehen davon aus, dass 'vorlage_37_3.pdf' im Root-Verzeichnis liegt.
         //    path.join() baut den Pfad sicher zusammen.
-        const templatePath = path.join(__dirname, '..', '..', 'vorlage_37_3.pdf');
+        const templatePath = path.join(__dirname, '..', '..', 'Beratungsbesuch_37.3_NEU');
         const pdfTemplateBytes = await fs.readFile(templatePath);
         
         // PDF-Dokument mit pdf-lib laden
@@ -104,3 +104,4 @@ exports.handler = async (event, context) => {
         };
     }
 };
+
